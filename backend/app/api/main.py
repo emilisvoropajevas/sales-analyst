@@ -8,3 +8,14 @@ api_router.include_router(login.router)
 api_router.include_router(upload.router)
 api_router.include_router(orders.router)
 
+#Check models and validate schemas, 
+
+#Go through create user, im only using one user so requires some refactoring
+
+#Migrate to alembic for database migrations
+
+#bash scripts for checking database running before running alembic migrations
+
+# check understanding of each file and reason for existing 
+
+#frontend setup 

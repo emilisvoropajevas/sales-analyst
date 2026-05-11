@@ -1,11 +1,8 @@
-import uuid
-from typing import Any
-
 from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
 from app.models import User, UserCreate, Reports
-from app.schemas import CreateReport, ReportPublic
+from app.schemas import CreateReport
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
     db_obj = User.model_validate(
