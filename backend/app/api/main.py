@@ -12,6 +12,10 @@ api_router.include_router(orders.router)
 
 #Go through create user, im only using one user so requires some refactoring
 
+#Write testing files for each endpoint
+
+#Test in localhost for successfull data creation and filtering based on columns, adjust if need be
+
 #Migrate to alembic for database migrations
 
 #bash scripts for checking database running before running alembic migrations

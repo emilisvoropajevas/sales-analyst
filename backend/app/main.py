@@ -43,3 +43,5 @@ if settings.all_cors_origins:
     )
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
+
+#For future, init db will have to run after alembic
