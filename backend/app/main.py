@@ -7,7 +7,6 @@ from starlette.middleware.cors import CORSMiddleware
 
 from sqlmodel import Session
 from app.core.db import create_db_and_tables, init_db, engine
-from app import models
 from app.api.main import api_router
 from app.core.config import settings
 

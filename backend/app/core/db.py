@@ -23,5 +23,9 @@ def init_db(session: Session) -> None:
         session.commit()
         session.refresh(user)
 
+"""
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
+"""
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
