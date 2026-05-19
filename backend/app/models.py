@@ -12,11 +12,11 @@ class Orders(SQLModel, table=True):
     id : int | None = Field(default=None, primary_key=True)
     order_id: int
     order_date: datetime = Field(index=True)
-    product_sku: str
+    product_sku: str = Field(index=True)
     product_name: str
     price: float
     qty_ordered: float
-    model_range : str
+    model_range : str = Field(index=True)
     #Can have multiple order id with the same items, need to check all fields to find duplicates
     __table_args__ = (
         UniqueConstraint("order_id", "product_sku", "order_date", "qty_ordered", "price", "model_range"),
@@ -38,6 +38,7 @@ class User(SQLModel, table=True):
     is_superuser: bool = False
     is_active: bool = True
 
+#Migrate to schemas
 class UserCreate(SQLModel):
     username: str
     password: str

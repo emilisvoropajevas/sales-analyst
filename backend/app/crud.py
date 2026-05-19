@@ -1,3 +1,4 @@
+from datetime import datetime
 from sqlmodel import Session, select
 from sqlalchemy.dialects.postgresql import insert
 
@@ -47,6 +48,22 @@ def upload_orders(*, session: Session, orders_in: list[dict]) -> dict:
     result = session.exec(statement)
     session.commit()
     return {"inserted_rows": result.rowcount}
+
+def read_orders(*, session: Session, model_range: str | None = None, sku: str | None = None, start_date: datetime | None = None, end_date: datetime | None = None) -> list[Orders]:
+    default_show_records = 20
+    statement = select(Orders)
+    if model_range:
+        statement = statement.where(Orders.model_range == model_range)
+    if sku:
+        statement = statement.where(Orders.product_sku == sku)
+    if start_date and end_date:
+        statement = statement.where(
+            Orders.order_date >= start_date,
+            Orders.order_date <= end_date,
+        )
+    else:
+        statement = statement.order_by(Orders.order_date.desc()).limit(default_show_records)
+    return session.exec(statement).all()
 
 #Report interactions
 def create_report(*, session: Session, report_in: CreateReport) -> Reports:
