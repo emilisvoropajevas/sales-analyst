@@ -1,7 +1,8 @@
 from sqlmodel import Session, select
+from sqlalchemy.dialects.postgresql import insert
 
 from app.core.security import get_password_hash, verify_password
-from app.models import User, UserCreate, Reports
+from app.models import User, UserCreate, Reports, Orders
 from app.schemas import CreateReport
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
@@ -38,7 +39,16 @@ def authenticate(*, session: Session, username: str, password: str) -> User | No
         session.commit()
         session.refresh(db_user)
     return db_user
-    
+
+#Order Interaction and Uploads
+def upload_orders(*, session: Session, orders_in: list[dict]) -> dict:
+    statement = insert(Orders).values(orders_in)
+    statement = statement.on_conflict_do_nothing()
+    result = session.exec(statement)
+    session.commit()
+    return {"inserted_rows": result.rowcount}
+
+#Report interactions
 def create_report(*, session: Session, report_in: CreateReport) -> Reports:
     db_report = Reports.model_validate(report_in)
     session.add(db_report)

@@ -33,3 +33,5 @@ def get_orders(
     results = session.exec(statement).all()
 
     return results
+
+#migrate to crud (all db interactions in one file)

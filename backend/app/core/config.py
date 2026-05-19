@@ -22,7 +22,7 @@ class Settings(BaseSettings):
         extra="ignore",
     )
     API_V1_STR: str = "/api/v1"
-    PROJECT_NAME: str = "sales-analytics-dashboard"
+    PROJECT_NAME: str = "Sales-Analyst"
 
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
 
@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES : int
     FIRST_SUPERUSER : str
     FIRST_SUPERUSER_PASSWORD : str
-
+    #Set token_expiry
     POSTGRES_SERVER : str
     POSTGRES_PORT : int = 5432
     POSTGRES_USER : str
