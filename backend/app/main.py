@@ -2,25 +2,14 @@ from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from contextlib import asynccontextmanager
 from starlette.middleware.cors import CORSMiddleware
 
-from sqlmodel import Session
-from app.core.db import create_db_and_tables, init_db, engine
 from app.api.main import api_router
 from app.core.config import settings
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    create_db_and_tables()
-    with Session(engine) as session:
-        init_db(session)
-    yield
-
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    openapi_url=f"{settings.API_V1_STR}/openapi.json",
-    lifespan=lifespan
+    openapi_url=f"{settings.API_V1_STR}/openapi.json"
     )
 
 @app.exception_handler(RequestValidationError)
@@ -42,5 +31,3 @@ if settings.all_cors_origins:
     )
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
-
-#For future, init db will have to run after alembic
