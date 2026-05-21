@@ -34,4 +34,4 @@ COPY ./pyproject.toml ./alembic.ini ./
 
 COPY ./app ./app
 
-CMD ["/bin/bash", "-c", "bash scripts/prestart.sh && fastapi run app/main.py"]
+CMD ["fastapi", "run", "app/main.py"]
