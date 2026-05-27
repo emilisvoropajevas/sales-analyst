@@ -48,4 +48,14 @@ def test_orders_sku_model_range(client: TestClient, superuser_token_headers: dic
     for model in results:
         assert model["model_range"] == "DWP/1935"
 
-#Bad sku? Bad model range? - returns error
+def test_orders_bad_sku(client: TestClient, superuser_token_headers: dict[str,str]) -> list[Orders]:
+    r = client.get(f"{settings.API_V1_STR}/orders", headers=superuser_token_headers, params={"sku": "DWP/19345/01"})
+    assert r.status_code == 200
+    results = r.json()
+    assert results == []
+
+def test_orders_bad_model_range(client: TestClient, superuser_token_headers: dict[str,str]) -> list[Orders]:
+    r = client.get(f"{settings.API_V1_STR}/orders", headers=superuser_token_headers, params={"model_range": "DWP/19"})
+    assert r.status_code == 200
+    results = r.json()
+    assert results == []
