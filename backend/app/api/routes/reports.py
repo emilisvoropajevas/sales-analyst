@@ -7,8 +7,8 @@ from app.crud import create_report, get_reports, get_report_by_id, delete_report
 
 router = APIRouter(prefix="/reports", tags=["reports"])
 
-@router.post("/", response_model=ReportPublicWithData)
-def add_report(*, session: SessionDep, current_user: CurrentUser, report_in: CreateReport) -> ReportPublicWithData:
+@router.post("/", response_model=ReportPublic)
+def add_report(*, session: SessionDep, current_user: CurrentUser, report_in: CreateReport) -> ReportPublic:
     report = create_report(session=session, report_in=report_in)
     return report
 
