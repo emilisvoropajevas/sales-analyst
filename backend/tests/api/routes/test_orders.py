@@ -17,24 +17,33 @@ def test_orders_no_startdate(client: TestClient, superuser_token_headers: dict[s
     r = client.get(f"{settings.API_V1_STR}/orders", headers=superuser_token_headers, params={"start_date": datetime(2026, 5, 10, 18, 59)})
     assert r.status_code == 400
 
-"""
-what happens if date range does not exist? 
-end_date without start_date
-both dates -> should show correct range
-sku -> should show correct sku products
-model_range -> returns match
-date_range that has no matching records -> should return empty list
+def test_orders_no_enddate(client: TestClient, superuser_token_headers: dict[str,str]) -> list[Orders]:
+    r = client.get(f"{settings.API_V1_STR}/orders", headers=superuser_token_headers, params={"end_date": datetime(2026, 5, 15, 8, 21)})
+    assert r.status_code == 400
 
-@router.get("/", response_model=list[Orders])
-def get_orders(session: SessionDep, current_user: CurrentUser, 
-               start_date: datetime | None = None, end_date: datetime | None = None, 
-               model_range: str | None = None, sku: str | None = None) -> list[Orders]:
-    
-    if (start_date and not end_date) or (end_date and not start_date):
-        raise HTTPException(status_code=400, detail="Missing start or end date")
-    result = read_orders(session=session, start_date=start_date, end_date=end_date, model_range=model_range, sku=sku)
-    return result
+def test_orders_date_range(client: TestClient, superuser_token_headers: dict[str,str])-> list[Orders]:
+    r = client.get(f"{settings.API_V1_STR}/orders", headers=superuser_token_headers, params={"start_date": datetime(2026, 5, 15, 1, 12), "end_date": datetime(2026, 5, 20, 16, 19)})
+    assert r.status_code == 200
+    results = r.json()
+    #from seed data, this should only show 5 records
+    assert len(results) == 5
 
-test the if statement assert responses
-test return values from raw_test_data
-"""
+def test_orders_out_of_bounds_date(client: TestClient, superuser_token_headers: dict[str,str]) -> list[Orders]:
+    r = client.get(f"{settings.API_V1_STR}/orders", headers=superuser_token_headers, params={"start_date": datetime(2026, 6, 20, 16, 19), "end_date": datetime(2026, 7, 20, 16, 19)})
+    assert r.status_code == 200
+    results = r.json()
+    assert results == []
+
+def test_orders_sku_range(client: TestClient, superuser_token_headers: dict[str,str]) -> list[Orders]:
+    r = client.get(f"{settings.API_V1_STR}/orders", headers=superuser_token_headers, params={"sku": "DWP/1935/01"})
+    assert r.status_code == 200
+    results = r.json()
+    for sku in results:
+        assert sku["product_sku"] == "DWP/1935/01"
+
+def test_orders_sku_model_range(client: TestClient, superuser_token_headers: dict[str,str]) -> list[Orders]:
+    r = client.get(f"{settings.API_V1_STR}/orders", headers=superuser_token_headers, params={"model_range": "DWP/1935"})
+    assert r.status_code == 200
+    results = r.json()
+    for model in results:
+        assert model["model_range"] == "DWP/1935"
