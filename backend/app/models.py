@@ -28,7 +28,8 @@ class Reports(SQLModel, table=True):
     created_at: datetime = Field(default_factory=get_datetime_utc, sa_type=DateTime(timezone=True),)
     date_range_start: datetime
     date_range_end: datetime
-    data: dict = Field(sa_column=Column(JSONB))
+    sku: str | None = None
+    model_range: str
 
 class User(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
@@ -37,21 +38,3 @@ class User(SQLModel, table=True):
     created_at: datetime | None = Field(default_factory=get_datetime_utc, sa_type=DateTime(timezone=True),)
     is_superuser: bool = False
     is_active: bool = True
-
-#Migrate to schemas
-class UserCreate(SQLModel):
-    username: str
-    password: str
-
-class UserPublic(SQLModel):
-    id: uuid.UUID
-    username: str
-    is_active: bool
-    is_superuser: bool
-
-class Token(SQLModel):
-    access_token: str
-    token_type: str = "bearer"
-
-class TokenPayload(SQLModel):
-    sub: str | None = None

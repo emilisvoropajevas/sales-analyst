@@ -9,7 +9,7 @@ from app import crud
 from app.api.deps import CurrentUser, SessionDep
 from app.core import security
 from app.core.config import settings
-from app.models import Token, UserPublic
+from app.schemas import Token, UserPublic
 
 router = APIRouter(tags=["login"])
 

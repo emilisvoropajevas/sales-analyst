@@ -3,8 +3,8 @@ from sqlmodel import Session, select
 from sqlalchemy.dialects.postgresql import insert
 
 from app.core.security import get_password_hash, verify_password
-from app.models import User, UserCreate, Reports, Orders
-from app.schemas import CreateReport
+from app.models import User, Reports, Orders
+from app.schemas import CreateReport, UserCreate
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
     db_obj = User.model_validate(

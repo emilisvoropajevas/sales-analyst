@@ -47,3 +47,5 @@ def test_orders_sku_model_range(client: TestClient, superuser_token_headers: dic
     results = r.json()
     for model in results:
         assert model["model_range"] == "DWP/1935"
+
+#Bad sku? Bad model range? - returns error
