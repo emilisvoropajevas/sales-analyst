@@ -1,19 +1,18 @@
-"""initial migration
+"""initial migration with new reports table
 
-Revision ID: c4bbe7c0cbb6
+Revision ID: 00215cb1afe6
 Revises: 
-Create Date: 2026-05-20 09:44:30.142483
+Create Date: 2026-05-28 08:39:00.917259
 
 """
 from typing import Sequence, Union
-import sqlmodel
 
 from alembic import op
 import sqlalchemy as sa
-from sqlalchemy.dialects import postgresql
+import sqlmodel
 
 # revision identifiers, used by Alembic.
-revision: str = 'c4bbe7c0cbb6'
+revision: str = '00215cb1afe6'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -43,7 +42,8 @@ def upgrade() -> None:
     sa.Column('created_at', sa.DateTime(timezone=True), nullable=False),
     sa.Column('date_range_start', sa.DateTime(), nullable=False),
     sa.Column('date_range_end', sa.DateTime(), nullable=False),
-    sa.Column('data', postgresql.JSONB(astext_type=sa.Text()), nullable=True),
+    sa.Column('sku', sqlmodel.sql.sqltypes.AutoString(), nullable=True),
+    sa.Column('model_range', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',

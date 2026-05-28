@@ -46,3 +46,5 @@ class Token(SQLModel):
 
 class TokenPayload(SQLModel):
     sub: str | None = None
+
+#Note to self - I changed the sku field to product sku
