@@ -10,7 +10,7 @@ router = APIRouter(prefix="/upload", tags=["upload"])
 async def upload_to_db(file: UploadFile, session: SessionDep, current_user: CurrentUser) -> dict:
     MAX_FILE_SIZE = 5 * 1024 * 1024
     if file.size > MAX_FILE_SIZE:
-        raise HTTPException(status_code=413, detail=f"Filesize too large, must be below {MAX_FILE_SIZE/(1024*1024)} Mb")
+        raise HTTPException(status_code=413, detail=f"Filesize too large, must be below {MAX_FILE_SIZE/(1024*1024)}Mb")
     if file.content_type != "text/csv":
         raise HTTPException(status_code=415, detail="File must be CSV")
     contents = await file.read()
