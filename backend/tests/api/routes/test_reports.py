@@ -1,11 +1,9 @@
 from fastapi.testclient import TestClient
-import json
 from datetime import datetime
 
 from app.schemas import ReportPublic, ReportPublicWithData, CreateReport
 from app.core.config import settings
 
-#Test Reports endpoint 
 def test_add_report(client: TestClient, superuser_token_headers: dict[str, str]) -> ReportPublic:
     data = {
         "name": "test_report",
@@ -16,6 +14,36 @@ def test_add_report(client: TestClient, superuser_token_headers: dict[str, str])
     }
     r = client.post(f"{settings.API_V1_STR}/reports", headers=superuser_token_headers, json=data)
     assert r.status_code == 200
+    results = r.json()
+    required_column_names = ["id", "name", "created_at", "date_range_start", "date_range_end", "sku", "model_range"]
+
+    for column in required_column_names:
+        assert column in results
+    
+    for name, item in data.items():
+        assert name in results
+        assert item == results[name]
+
+#Missing model_range - should return 422 (Cannot be empty) - empty sku, empty name
+
+def test_add_report_missing_model_range(client: TestClient, superuser_token_headers: dict[str,str]) -> ReportPublic:
+    data = {
+        "name": "test_report",
+        "date_range_start": datetime(2026, 5, 10, 18, 59).isoformat(),
+        "date_range_end": datetime(2026, 5, 20, 16, 19).isoformat(),
+        "sku": "DWP/1935/01",
+    }
+    r = client.post(f"{settings.API_V1_STR}/reports", headers=superuser_token_headers, json=data)
+    assert r.status_code == 422
+
+
+
+def test_read_reports(client: TestClient, superuser_token_headers: dict[str,str]) -> list[ReportPublic]:
+    r = client.get(f"{settings.API_V1_STR}/reports", headers=superuser_token_headers)
+    assert r.status_code == 200
+    results = r.json()
+    assert len(results) == 1
+    assert "test_report" == results[0]["name"]
 
 
 """
@@ -23,20 +51,8 @@ class CreateReport(SQLModel):
     name: str
     date_range_start: datetime
     date_range_end: datetime
-    sku: str | None = None
-    model_range: str
-
-
-@router.post("/", response_model=ReportPublic)
-def add_report(*, session: SessionDep, current_user: CurrentUser, report_in: CreateReport) -> ReportPublic:
-    report = create_report(session=session, report_in=report_in)
-    return report
-
-
-@router.get("/", response_model=list[ReportPublic])
-def read_reports(*, session: SessionDep, current_user: CurrentUser) -> list[ReportPublic]:
-    read_reports_all = get_reports(session=session)
-    return read_reports_all
+    sku: Annotated[str | None, AfterValidator(is_empty)] = None
+    model_range: Annotated[str, AfterValidator(is_empty)]
 
 #This needs to query the db and return reportpublic with data (metadata)
 @router.get("/{report_id}", response_model=ReportPublicWithData)

@@ -1,6 +1,15 @@
 import uuid
 from datetime import datetime
 from sqlmodel import SQLModel
+from typing import Annotated
+from pydantic import AfterValidator
+
+def is_empty(value: str):
+    if value is None:
+        return value
+    if not value.strip():
+        raise ValueError(f"Cannot be empty")
+    return value
 
 class OrdersPublic(SQLModel):
     order_id: int
@@ -12,11 +21,11 @@ class OrdersPublic(SQLModel):
     model_range : str
 
 class CreateReport(SQLModel):
-    name: str
+    name: Annotated[str, AfterValidator(is_empty)]
     date_range_start: datetime
     date_range_end: datetime
-    sku: str | None = None
-    model_range: str
+    sku: Annotated[str | None, AfterValidator(is_empty)] = None
+    model_range: Annotated[str, AfterValidator(is_empty)]
 
 class ReportPublic(SQLModel):
     id: int
