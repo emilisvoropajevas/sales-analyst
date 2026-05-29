@@ -9,7 +9,14 @@ def is_empty(value: str):
         return value
     if not value.strip():
         raise ValueError(f"Cannot be empty")
-    return value
+    return value.strip().upper()
+
+def empty_name(value: str):
+    if value is None:
+        return value
+    if not value.strip():
+        raise ValueError(f"Cannot be empty")
+    return value.strip()
 
 class OrdersPublic(SQLModel):
     order_id: int
@@ -21,7 +28,7 @@ class OrdersPublic(SQLModel):
     model_range : str
 
 class CreateReport(SQLModel):
-    name: Annotated[str, AfterValidator(is_empty)]
+    name: Annotated[str, AfterValidator(empty_name)]
     date_range_start: datetime
     date_range_end: datetime
     sku: Annotated[str | None, AfterValidator(is_empty)] = None
@@ -55,5 +62,3 @@ class Token(SQLModel):
 
 class TokenPayload(SQLModel):
     sub: str | None = None
-
-#Note to self - I changed the sku field to product sku

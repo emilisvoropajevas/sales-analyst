@@ -16,7 +16,7 @@ def clean_and_format_csv(csv_file):
     if missing_columns:
         raise ValueError(f"Column {missing_columns} missing from data")
     
-    uploaded_file_as_dataframe['Order Date'] = (pd.to_datetime(uploaded_file_as_dataframe['Order Date'],format='%Y-%m-%d %H:%M:%S', errors = 'coerce')).dt.normalize()
+    uploaded_file_as_dataframe['Order Date'] = (pd.to_datetime(uploaded_file_as_dataframe['Order Date'], format='%Y-%m-%d %H:%M:%S', errors = 'coerce')).dt.normalize()
 
     if uploaded_file_as_dataframe['Order Date'].isnull().sum() / len(uploaded_file_as_dataframe['Order Date']) > 0.1:
         raise ValueError("Too many null dates")
