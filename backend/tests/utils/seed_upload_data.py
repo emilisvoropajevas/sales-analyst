@@ -1,10 +1,9 @@
-from io import BytesIO
 import json
 import pandas as pd
 
-# Test CSV file
+# Test CSV file - Upload Endpoint
 def valid_csv():
-    df = pd.DataFrame(
+    test_csv = pd.DataFrame(
         {
             "Order ID": [2345, 2222, 3333 , 4523 , 4323, 4523, 4565, 5654, 56543, 54356],
             "Order Date": ["2026-05-15 13:48:00", "2026-05-10 13:50:00", "2026-05-20 15:48:00", "2026-08-29 19:58:16", "2026-11-07 16:12:05", "2026-12-31 23:40:27", "2026-03-02 17:45:39", "2026-07-05 06:37:42", "2026-11-07 16:12:05", "2026-12-31 23:40:27"],
@@ -15,10 +14,10 @@ def valid_csv():
             "Qty Ordered": [60, 1, 2, 5, 7, 20, 40, 20, 10, 2],
         }
     )
-    return BytesIO(df.to_csv(index=False).encode())
+    return test_csv.to_csv(index=False).encode()
 
 #Big file 1 byte over 5Mb
-big_file = BytesIO(b"x" * (5 * 1024 * 1024 + 1))
+big_file = b"x" * (5 * 1024 * 1024 + 1)
 
 # .txt file for wrong content type
 json_file = json.dumps('{"hello": "i", "am": "the", "wrong": "file", "file": "type"}').encode("utf-8")

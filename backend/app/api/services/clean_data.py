@@ -21,7 +21,7 @@ def clean_and_format_csv(csv_file):
     if uploaded_file_as_dataframe['Order Date'].isnull().sum() / len(uploaded_file_as_dataframe['Order Date']) > 0.1:
         raise ValueError("Too many null dates")
     else:
-        uploaded_file_as_dataframe['Order Date'].dropna() #does not return empty columns, keeps them because im not saving them, adjust this
+        uploaded_file_as_dataframe = uploaded_file_as_dataframe.dropna(subset=['Order Date'])
 
     report_dataframe = uploaded_file_as_dataframe[['Order Date', 'Order ID', 'Product SKU', 'Product Name', 'Qty Ordered', 'Price']].copy()
     
