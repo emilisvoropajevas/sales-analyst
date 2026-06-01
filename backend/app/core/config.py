@@ -22,7 +22,7 @@ class Settings(BaseSettings):
         extra="ignore",
     )
     API_V1_STR: str = "/api/v1"
-    PROJECT_NAME: str = "Sales-Analyst"
+    PROJECT_NAME: str = "Sales-Analyst" # Adjust name to your liking
 
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
 
