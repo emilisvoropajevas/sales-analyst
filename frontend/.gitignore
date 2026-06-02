@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 openapi.json
+.tanstack/
+.env
 
 # Editor directories and files
 .vscode/*

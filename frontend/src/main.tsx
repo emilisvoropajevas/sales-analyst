@@ -1,10 +1,52 @@
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider
+} from '@tanstack/react-query'
+import { createRouter, RouterProvider } from '@tanstack/react-router'
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import ReactDOM from 'react-dom/client'
+import { isAxiosError } from 'axios'
+import { client } from './client-axios/client.gen'
+import "./index.css"
+import { routeTree } from './routeTree.gen'
 
-createRoot(document.getElementById('root')!).render(
+client.setConfig({
+  baseURL: import.meta.env.VITE_API_URL,
+  throwOnError: true,
+  auth: async () => {
+    return localStorage.getItem("access-token") || ""
+  }
+})
+
+const handleApiError = (error: Error) => {
+  if (isAxiosError(error) && [401, 403].includes(error.response?.status ?? 0)) {
+    localStorage.removeItem("access-token")
+    window.location.href = '/login'
+  } 
+}
+
+const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: handleApiError,
+  }),
+  mutationCache: new MutationCache({
+    onError: handleApiError,
+  }), 
+})
+
+const router = createRouter({ routeTree })
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router
+  }
+}
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router}/>
+    </QueryClientProvider>
   </StrictMode>,
 )
