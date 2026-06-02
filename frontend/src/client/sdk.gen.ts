@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type RequestResult, type TDataShape, urlSearchParamsBodySerializer } from './client';
 import { client } from './client.gen';
-import type { AddReportApiV1ReportsPostData, AddReportApiV1ReportsPostErrors, AddReportApiV1ReportsPostResponses, GetOrdersApiV1OrdersGetData, GetOrdersApiV1OrdersGetErrors, GetOrdersApiV1OrdersGetResponses, GetReportIdApiV1ReportsReportIdGetData, GetReportIdApiV1ReportsReportIdGetErrors, GetReportIdApiV1ReportsReportIdGetResponses, LoginAccessTokenApiV1LoginAccessTokenPostData, LoginAccessTokenApiV1LoginAccessTokenPostErrors, LoginAccessTokenApiV1LoginAccessTokenPostResponses, ReadReportsApiV1ReportsGetData, ReadReportsApiV1ReportsGetResponses, RemoveReportApiV1ReportsReportIdDeleteData, RemoveReportApiV1ReportsReportIdDeleteErrors, RemoveReportApiV1ReportsReportIdDeleteResponses, TestTokenApiV1LoginTestTokenPostData, TestTokenApiV1LoginTestTokenPostResponses, UploadToDbApiV1UploadPostData, UploadToDbApiV1UploadPostErrors, UploadToDbApiV1UploadPostResponses } from './types.gen';
+import type { AddReportData, AddReportErrors, AddReportResponses, GetOrdersData, GetOrdersErrors, GetOrdersResponses, GetReportData, GetReportErrors, GetReportResponses, GetReportsData, GetReportsResponses, LoginAccessTokenData, LoginAccessTokenErrors, LoginAccessTokenResponses, LoginTestTokenData, LoginTestTokenResponses, RemoveReportData, RemoveReportErrors, RemoveReportResponses, UploadOrdersData, UploadOrdersErrors, UploadOrdersResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -22,8 +22,8 @@ export class Login {
     /**
      * Login Access Token
      */
-    public static loginAccessTokenApiV1LoginAccessTokenPost<ThrowOnError extends boolean = false>(options: Options<LoginAccessTokenApiV1LoginAccessTokenPostData, ThrowOnError>): RequestResult<LoginAccessTokenApiV1LoginAccessTokenPostResponses, LoginAccessTokenApiV1LoginAccessTokenPostErrors, ThrowOnError> {
-        return (options.client ?? client).post<LoginAccessTokenApiV1LoginAccessTokenPostResponses, LoginAccessTokenApiV1LoginAccessTokenPostErrors, ThrowOnError>({
+    public static loginAccessToken<ThrowOnError extends boolean = false>(options: Options<LoginAccessTokenData, ThrowOnError>): RequestResult<LoginAccessTokenResponses, LoginAccessTokenErrors, ThrowOnError> {
+        return (options.client ?? client).post<LoginAccessTokenResponses, LoginAccessTokenErrors, ThrowOnError>({
             ...urlSearchParamsBodySerializer,
             responseType: 'json',
             url: '/api/v1/login/access-token',
@@ -38,8 +38,8 @@ export class Login {
     /**
      * Test Token
      */
-    public static testTokenApiV1LoginTestTokenPost<ThrowOnError extends boolean = false>(options?: Options<TestTokenApiV1LoginTestTokenPostData, ThrowOnError>): RequestResult<TestTokenApiV1LoginTestTokenPostResponses, unknown, ThrowOnError> {
-        return (options?.client ?? client).post<TestTokenApiV1LoginTestTokenPostResponses, unknown, ThrowOnError>({
+    public static loginTestToken<ThrowOnError extends boolean = false>(options?: Options<LoginTestTokenData, ThrowOnError>): RequestResult<LoginTestTokenResponses, unknown, ThrowOnError> {
+        return (options?.client ?? client).post<LoginTestTokenResponses, unknown, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/api/v1/login/test-token',
@@ -52,8 +52,8 @@ export class Upload {
     /**
      * Upload To Db
      */
-    public static uploadToDbApiV1UploadPost<ThrowOnError extends boolean = false>(options: Options<UploadToDbApiV1UploadPostData, ThrowOnError>): RequestResult<UploadToDbApiV1UploadPostResponses, UploadToDbApiV1UploadPostErrors, ThrowOnError> {
-        return (options.client ?? client).post<UploadToDbApiV1UploadPostResponses, UploadToDbApiV1UploadPostErrors, ThrowOnError>({
+    public static uploadOrders<ThrowOnError extends boolean = false>(options: Options<UploadOrdersData, ThrowOnError>): RequestResult<UploadOrdersResponses, UploadOrdersErrors, ThrowOnError> {
+        return (options.client ?? client).post<UploadOrdersResponses, UploadOrdersErrors, ThrowOnError>({
             ...formDataBodySerializer,
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
@@ -71,8 +71,8 @@ export class Orders {
     /**
      * Get Orders
      */
-    public static getOrdersApiV1OrdersGet<ThrowOnError extends boolean = false>(options?: Options<GetOrdersApiV1OrdersGetData, ThrowOnError>): RequestResult<GetOrdersApiV1OrdersGetResponses, GetOrdersApiV1OrdersGetErrors, ThrowOnError> {
-        return (options?.client ?? client).get<GetOrdersApiV1OrdersGetResponses, GetOrdersApiV1OrdersGetErrors, ThrowOnError>({
+    public static getOrders<ThrowOnError extends boolean = false>(options?: Options<GetOrdersData, ThrowOnError>): RequestResult<GetOrdersResponses, GetOrdersErrors, ThrowOnError> {
+        return (options?.client ?? client).get<GetOrdersResponses, GetOrdersErrors, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/api/v1/orders/',
@@ -85,8 +85,8 @@ export class Reports {
     /**
      * Read Reports
      */
-    public static readReportsApiV1ReportsGet<ThrowOnError extends boolean = false>(options?: Options<ReadReportsApiV1ReportsGetData, ThrowOnError>): RequestResult<ReadReportsApiV1ReportsGetResponses, unknown, ThrowOnError> {
-        return (options?.client ?? client).get<ReadReportsApiV1ReportsGetResponses, unknown, ThrowOnError>({
+    public static getReports<ThrowOnError extends boolean = false>(options?: Options<GetReportsData, ThrowOnError>): RequestResult<GetReportsResponses, unknown, ThrowOnError> {
+        return (options?.client ?? client).get<GetReportsResponses, unknown, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/api/v1/reports/',
@@ -97,8 +97,8 @@ export class Reports {
     /**
      * Add Report
      */
-    public static addReportApiV1ReportsPost<ThrowOnError extends boolean = false>(options: Options<AddReportApiV1ReportsPostData, ThrowOnError>): RequestResult<AddReportApiV1ReportsPostResponses, AddReportApiV1ReportsPostErrors, ThrowOnError> {
-        return (options.client ?? client).post<AddReportApiV1ReportsPostResponses, AddReportApiV1ReportsPostErrors, ThrowOnError>({
+    public static addReport<ThrowOnError extends boolean = false>(options: Options<AddReportData, ThrowOnError>): RequestResult<AddReportResponses, AddReportErrors, ThrowOnError> {
+        return (options.client ?? client).post<AddReportResponses, AddReportErrors, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/api/v1/reports/',
@@ -113,8 +113,8 @@ export class Reports {
     /**
      * Remove Report
      */
-    public static removeReportApiV1ReportsReportIdDelete<ThrowOnError extends boolean = false>(options: Options<RemoveReportApiV1ReportsReportIdDeleteData, ThrowOnError>): RequestResult<RemoveReportApiV1ReportsReportIdDeleteResponses, RemoveReportApiV1ReportsReportIdDeleteErrors, ThrowOnError> {
-        return (options.client ?? client).delete<RemoveReportApiV1ReportsReportIdDeleteResponses, RemoveReportApiV1ReportsReportIdDeleteErrors, ThrowOnError>({
+    public static removeReport<ThrowOnError extends boolean = false>(options: Options<RemoveReportData, ThrowOnError>): RequestResult<RemoveReportResponses, RemoveReportErrors, ThrowOnError> {
+        return (options.client ?? client).delete<RemoveReportResponses, RemoveReportErrors, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/api/v1/reports/{report_id}',
@@ -125,8 +125,8 @@ export class Reports {
     /**
      * Get Report Id
      */
-    public static getReportIdApiV1ReportsReportIdGet<ThrowOnError extends boolean = false>(options: Options<GetReportIdApiV1ReportsReportIdGetData, ThrowOnError>): RequestResult<GetReportIdApiV1ReportsReportIdGetResponses, GetReportIdApiV1ReportsReportIdGetErrors, ThrowOnError> {
-        return (options.client ?? client).get<GetReportIdApiV1ReportsReportIdGetResponses, GetReportIdApiV1ReportsReportIdGetErrors, ThrowOnError>({
+    public static getReport<ThrowOnError extends boolean = false>(options: Options<GetReportData, ThrowOnError>): RequestResult<GetReportResponses, GetReportErrors, ThrowOnError> {
+        return (options.client ?? client).get<GetReportResponses, GetReportErrors, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
             url: '/api/v1/reports/{report_id}',

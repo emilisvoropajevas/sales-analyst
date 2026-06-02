@@ -8,5 +8,3 @@ api_router.include_router(login.router)
 api_router.include_router(upload.router)
 api_router.include_router(orders.router)
 api_router.include_router(reports.router)
-
-#frontend setup 

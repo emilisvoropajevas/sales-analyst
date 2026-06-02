@@ -6,7 +6,7 @@ from app.api.deps import SessionDep, CurrentUser
 
 router = APIRouter(prefix="/upload", tags=["upload"])
 
-@router.post("/")
+@router.post("/", operation_id="uploadOrders")
 async def upload_to_db(file: UploadFile, session: SessionDep, current_user: CurrentUser) -> dict:
     MAX_FILE_SIZE = 5 * 1024 * 1024
     if file.size > MAX_FILE_SIZE:

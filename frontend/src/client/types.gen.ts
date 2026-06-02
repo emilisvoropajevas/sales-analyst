@@ -5,9 +5,9 @@ export type ClientOptions = {
 };
 
 /**
- * Body_login_access_token_api_v1_login_access_token_post
+ * Body_loginAccessToken
  */
-export type BodyLoginAccessTokenApiV1LoginAccessTokenPost = {
+export type BodyLoginAccessToken = {
     /**
      * Grant Type
      */
@@ -35,9 +35,9 @@ export type BodyLoginAccessTokenApiV1LoginAccessTokenPost = {
 };
 
 /**
- * Body_upload_to_db_api_v1_upload__post
+ * Body_uploadOrders
  */
-export type BodyUploadToDbApiV1UploadPost = {
+export type BodyUploadOrders = {
     /**
      * File
      */
@@ -78,44 +78,6 @@ export type HttpValidationError = {
      * Detail
      */
     detail?: Array<ValidationError>;
-};
-
-/**
- * Orders
- */
-export type Orders = {
-    /**
-     * Id
-     */
-    id?: number | null;
-    /**
-     * Order Id
-     */
-    order_id: number;
-    /**
-     * Order Date
-     */
-    order_date: string;
-    /**
-     * Product Sku
-     */
-    product_sku: string;
-    /**
-     * Product Name
-     */
-    product_name: string;
-    /**
-     * Price
-     */
-    price: number;
-    /**
-     * Qty Ordered
-     */
-    qty_ordered: number;
-    /**
-     * Model Range
-     */
-    model_range: string;
 };
 
 /**
@@ -288,66 +250,66 @@ export type ValidationError = {
     };
 };
 
-export type LoginAccessTokenApiV1LoginAccessTokenPostData = {
-    body: BodyLoginAccessTokenApiV1LoginAccessTokenPost;
+export type LoginAccessTokenData = {
+    body: BodyLoginAccessToken;
     path?: never;
     query?: never;
     url: '/api/v1/login/access-token';
 };
 
-export type LoginAccessTokenApiV1LoginAccessTokenPostErrors = {
+export type LoginAccessTokenErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type LoginAccessTokenApiV1LoginAccessTokenPostError = LoginAccessTokenApiV1LoginAccessTokenPostErrors[keyof LoginAccessTokenApiV1LoginAccessTokenPostErrors];
+export type LoginAccessTokenError = LoginAccessTokenErrors[keyof LoginAccessTokenErrors];
 
-export type LoginAccessTokenApiV1LoginAccessTokenPostResponses = {
+export type LoginAccessTokenResponses = {
     /**
      * Successful Response
      */
     200: Token;
 };
 
-export type LoginAccessTokenApiV1LoginAccessTokenPostResponse = LoginAccessTokenApiV1LoginAccessTokenPostResponses[keyof LoginAccessTokenApiV1LoginAccessTokenPostResponses];
+export type LoginAccessTokenResponse = LoginAccessTokenResponses[keyof LoginAccessTokenResponses];
 
-export type TestTokenApiV1LoginTestTokenPostData = {
+export type LoginTestTokenData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/api/v1/login/test-token';
 };
 
-export type TestTokenApiV1LoginTestTokenPostResponses = {
+export type LoginTestTokenResponses = {
     /**
      * Successful Response
      */
     200: UserPublic;
 };
 
-export type TestTokenApiV1LoginTestTokenPostResponse = TestTokenApiV1LoginTestTokenPostResponses[keyof TestTokenApiV1LoginTestTokenPostResponses];
+export type LoginTestTokenResponse = LoginTestTokenResponses[keyof LoginTestTokenResponses];
 
-export type UploadToDbApiV1UploadPostData = {
-    body: BodyUploadToDbApiV1UploadPost;
+export type UploadOrdersData = {
+    body: BodyUploadOrders;
     path?: never;
     query?: never;
     url: '/api/v1/upload/';
 };
 
-export type UploadToDbApiV1UploadPostErrors = {
+export type UploadOrdersErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type UploadToDbApiV1UploadPostError = UploadToDbApiV1UploadPostErrors[keyof UploadToDbApiV1UploadPostErrors];
+export type UploadOrdersError = UploadOrdersErrors[keyof UploadOrdersErrors];
 
-export type UploadToDbApiV1UploadPostResponses = {
+export type UploadOrdersResponses = {
     /**
-     * Response Upload To Db Api V1 Upload  Post
+     * Response Uploadorders
      *
      * Successful Response
      */
@@ -356,9 +318,9 @@ export type UploadToDbApiV1UploadPostResponses = {
     };
 };
 
-export type UploadToDbApiV1UploadPostResponse = UploadToDbApiV1UploadPostResponses[keyof UploadToDbApiV1UploadPostResponses];
+export type UploadOrdersResponse = UploadOrdersResponses[keyof UploadOrdersResponses];
 
-export type GetOrdersApiV1OrdersGetData = {
+export type GetOrdersData = {
     body?: never;
     path?: never;
     query?: {
@@ -382,70 +344,70 @@ export type GetOrdersApiV1OrdersGetData = {
     url: '/api/v1/orders/';
 };
 
-export type GetOrdersApiV1OrdersGetErrors = {
+export type GetOrdersErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetOrdersApiV1OrdersGetError = GetOrdersApiV1OrdersGetErrors[keyof GetOrdersApiV1OrdersGetErrors];
+export type GetOrdersError = GetOrdersErrors[keyof GetOrdersErrors];
 
-export type GetOrdersApiV1OrdersGetResponses = {
+export type GetOrdersResponses = {
     /**
-     * Response Get Orders Api V1 Orders  Get
+     * Response Getorders
      *
      * Successful Response
      */
-    200: Array<Orders>;
+    200: Array<OrdersPublic>;
 };
 
-export type GetOrdersApiV1OrdersGetResponse = GetOrdersApiV1OrdersGetResponses[keyof GetOrdersApiV1OrdersGetResponses];
+export type GetOrdersResponse = GetOrdersResponses[keyof GetOrdersResponses];
 
-export type ReadReportsApiV1ReportsGetData = {
+export type GetReportsData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/api/v1/reports/';
 };
 
-export type ReadReportsApiV1ReportsGetResponses = {
+export type GetReportsResponses = {
     /**
-     * Response Read Reports Api V1 Reports  Get
+     * Response Getreports
      *
      * Successful Response
      */
     200: Array<ReportPublic>;
 };
 
-export type ReadReportsApiV1ReportsGetResponse = ReadReportsApiV1ReportsGetResponses[keyof ReadReportsApiV1ReportsGetResponses];
+export type GetReportsResponse = GetReportsResponses[keyof GetReportsResponses];
 
-export type AddReportApiV1ReportsPostData = {
+export type AddReportData = {
     body: CreateReport;
     path?: never;
     query?: never;
     url: '/api/v1/reports/';
 };
 
-export type AddReportApiV1ReportsPostErrors = {
+export type AddReportErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type AddReportApiV1ReportsPostError = AddReportApiV1ReportsPostErrors[keyof AddReportApiV1ReportsPostErrors];
+export type AddReportError = AddReportErrors[keyof AddReportErrors];
 
-export type AddReportApiV1ReportsPostResponses = {
+export type AddReportResponses = {
     /**
      * Successful Response
      */
     200: ReportPublic;
 };
 
-export type AddReportApiV1ReportsPostResponse = AddReportApiV1ReportsPostResponses[keyof AddReportApiV1ReportsPostResponses];
+export type AddReportResponse = AddReportResponses[keyof AddReportResponses];
 
-export type RemoveReportApiV1ReportsReportIdDeleteData = {
+export type RemoveReportData = {
     body?: never;
     path: {
         /**
@@ -457,18 +419,18 @@ export type RemoveReportApiV1ReportsReportIdDeleteData = {
     url: '/api/v1/reports/{report_id}';
 };
 
-export type RemoveReportApiV1ReportsReportIdDeleteErrors = {
+export type RemoveReportErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type RemoveReportApiV1ReportsReportIdDeleteError = RemoveReportApiV1ReportsReportIdDeleteErrors[keyof RemoveReportApiV1ReportsReportIdDeleteErrors];
+export type RemoveReportError = RemoveReportErrors[keyof RemoveReportErrors];
 
-export type RemoveReportApiV1ReportsReportIdDeleteResponses = {
+export type RemoveReportResponses = {
     /**
-     * Response Remove Report Api V1 Reports  Report Id  Delete
+     * Response Removereport
      *
      * Successful Response
      */
@@ -477,9 +439,9 @@ export type RemoveReportApiV1ReportsReportIdDeleteResponses = {
     };
 };
 
-export type RemoveReportApiV1ReportsReportIdDeleteResponse = RemoveReportApiV1ReportsReportIdDeleteResponses[keyof RemoveReportApiV1ReportsReportIdDeleteResponses];
+export type RemoveReportResponse = RemoveReportResponses[keyof RemoveReportResponses];
 
-export type GetReportIdApiV1ReportsReportIdGetData = {
+export type GetReportData = {
     body?: never;
     path: {
         /**
@@ -491,20 +453,20 @@ export type GetReportIdApiV1ReportsReportIdGetData = {
     url: '/api/v1/reports/{report_id}';
 };
 
-export type GetReportIdApiV1ReportsReportIdGetErrors = {
+export type GetReportErrors = {
     /**
      * Validation Error
      */
     422: HttpValidationError;
 };
 
-export type GetReportIdApiV1ReportsReportIdGetError = GetReportIdApiV1ReportsReportIdGetErrors[keyof GetReportIdApiV1ReportsReportIdGetErrors];
+export type GetReportError = GetReportErrors[keyof GetReportErrors];
 
-export type GetReportIdApiV1ReportsReportIdGetResponses = {
+export type GetReportResponses = {
     /**
      * Successful Response
      */
     200: ReportPublicWithData;
 };
 
-export type GetReportIdApiV1ReportsReportIdGetResponse = GetReportIdApiV1ReportsReportIdGetResponses[keyof GetReportIdApiV1ReportsReportIdGetResponses];
+export type GetReportResponse = GetReportResponses[keyof GetReportResponses];

@@ -7,18 +7,18 @@ from app.crud import create_report, get_reports, get_report_by_id, delete_report
 
 router = APIRouter(prefix="/reports", tags=["reports"])
 
-@router.post("/", response_model=ReportPublic)
+@router.post("/", response_model=ReportPublic, operation_id="addReport")
 def add_report(*, session: SessionDep, current_user: CurrentUser, report_in: CreateReport) -> ReportPublic:
     report = create_report(session=session, report_in=report_in)
     return report
 
-@router.get("/", response_model=list[ReportPublic])
+@router.get("/", response_model=list[ReportPublic], operation_id="getReports")
 def read_reports(*, session: SessionDep, current_user: CurrentUser) -> list[ReportPublic]:
     read_reports_all = get_reports(session=session)
     return read_reports_all
 
 #This needs to query the db and return reportpublic with data (metadata)
-@router.get("/{report_id}", response_model=ReportPublicWithData)
+@router.get("/{report_id}", response_model=ReportPublicWithData, operation_id="getReport")
 def get_report_id(*, session: SessionDep, current_user: CurrentUser, report_id: int) -> ReportPublicWithData:
     get_report = get_report_by_id(session=session, report_id=report_id)
     if not get_report:
@@ -28,7 +28,7 @@ def get_report_id(*, session: SessionDep, current_user: CurrentUser, report_id: 
     # ** unpacks dictionary into keyword arguments
     return ReportPublicWithData(**get_report.model_dump(), data=orders)
 
-@router.delete("/{report_id}")
+@router.delete("/{report_id}", operation_id="removeReport")
 def remove_report(*, session: SessionDep, current_user: CurrentUser, report_id: int) -> dict:
     deleted = delete_report(session=session, report_id=report_id)
     if not deleted:

@@ -13,7 +13,7 @@ from app.schemas import Token, UserPublic
 
 router = APIRouter(tags=["login"])
 
-@router.post("/login/access-token")
+@router.post("/login/access-token", operation_id="loginAccessToken")
 def login_access_token(
     session: SessionDep, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
 ) -> Token:
@@ -32,6 +32,6 @@ def login_access_token(
         )
     )
 
-@router.post("/login/test-token", response_model=UserPublic)
+@router.post("/login/test-token", response_model=UserPublic, operation_id="loginTestToken")
 def test_token(current_user: CurrentUser) -> Any:
     return current_user
