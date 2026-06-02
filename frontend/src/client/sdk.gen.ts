@@ -18,11 +18,11 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
     meta?: Record<string, unknown>;
 };
 
-export class LoginService {
+export class Login {
     /**
      * Login Access Token
      */
-    public static operationnRandomNativeCode<ThrowOnError extends boolean = false>(options: Options<LoginAccessTokenApiV1LoginAccessTokenPostData, ThrowOnError>): RequestResult<LoginAccessTokenApiV1LoginAccessTokenPostResponses, LoginAccessTokenApiV1LoginAccessTokenPostErrors, ThrowOnError> {
+    public static loginAccessTokenApiV1LoginAccessTokenPost<ThrowOnError extends boolean = false>(options: Options<LoginAccessTokenApiV1LoginAccessTokenPostData, ThrowOnError>): RequestResult<LoginAccessTokenApiV1LoginAccessTokenPostResponses, LoginAccessTokenApiV1LoginAccessTokenPostErrors, ThrowOnError> {
         return (options.client ?? client).post<LoginAccessTokenApiV1LoginAccessTokenPostResponses, LoginAccessTokenApiV1LoginAccessTokenPostErrors, ThrowOnError>({
             ...urlSearchParamsBodySerializer,
             responseType: 'json',
@@ -38,7 +38,7 @@ export class LoginService {
     /**
      * Test Token
      */
-    public static operationnRandomNativeCode2<ThrowOnError extends boolean = false>(options?: Options<TestTokenApiV1LoginTestTokenPostData, ThrowOnError>): RequestResult<TestTokenApiV1LoginTestTokenPostResponses, unknown, ThrowOnError> {
+    public static testTokenApiV1LoginTestTokenPost<ThrowOnError extends boolean = false>(options?: Options<TestTokenApiV1LoginTestTokenPostData, ThrowOnError>): RequestResult<TestTokenApiV1LoginTestTokenPostResponses, unknown, ThrowOnError> {
         return (options?.client ?? client).post<TestTokenApiV1LoginTestTokenPostResponses, unknown, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
@@ -48,11 +48,11 @@ export class LoginService {
     }
 }
 
-export class UploadService {
+export class Upload {
     /**
      * Upload To Db
      */
-    public static operationnRandomNativeCode<ThrowOnError extends boolean = false>(options: Options<UploadToDbApiV1UploadPostData, ThrowOnError>): RequestResult<UploadToDbApiV1UploadPostResponses, UploadToDbApiV1UploadPostErrors, ThrowOnError> {
+    public static uploadToDbApiV1UploadPost<ThrowOnError extends boolean = false>(options: Options<UploadToDbApiV1UploadPostData, ThrowOnError>): RequestResult<UploadToDbApiV1UploadPostResponses, UploadToDbApiV1UploadPostErrors, ThrowOnError> {
         return (options.client ?? client).post<UploadToDbApiV1UploadPostResponses, UploadToDbApiV1UploadPostErrors, ThrowOnError>({
             ...formDataBodySerializer,
             responseType: 'json',
@@ -67,11 +67,11 @@ export class UploadService {
     }
 }
 
-export class OrdersService {
+export class Orders {
     /**
      * Get Orders
      */
-    public static operationnRandomNativeCode<ThrowOnError extends boolean = false>(options?: Options<GetOrdersApiV1OrdersGetData, ThrowOnError>): RequestResult<GetOrdersApiV1OrdersGetResponses, GetOrdersApiV1OrdersGetErrors, ThrowOnError> {
+    public static getOrdersApiV1OrdersGet<ThrowOnError extends boolean = false>(options?: Options<GetOrdersApiV1OrdersGetData, ThrowOnError>): RequestResult<GetOrdersApiV1OrdersGetResponses, GetOrdersApiV1OrdersGetErrors, ThrowOnError> {
         return (options?.client ?? client).get<GetOrdersApiV1OrdersGetResponses, GetOrdersApiV1OrdersGetErrors, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
@@ -81,11 +81,11 @@ export class OrdersService {
     }
 }
 
-export class ReportsService {
+export class Reports {
     /**
      * Read Reports
      */
-    public static operationnRandomNativeCode<ThrowOnError extends boolean = false>(options?: Options<ReadReportsApiV1ReportsGetData, ThrowOnError>): RequestResult<ReadReportsApiV1ReportsGetResponses, unknown, ThrowOnError> {
+    public static readReportsApiV1ReportsGet<ThrowOnError extends boolean = false>(options?: Options<ReadReportsApiV1ReportsGetData, ThrowOnError>): RequestResult<ReadReportsApiV1ReportsGetResponses, unknown, ThrowOnError> {
         return (options?.client ?? client).get<ReadReportsApiV1ReportsGetResponses, unknown, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
@@ -97,7 +97,7 @@ export class ReportsService {
     /**
      * Add Report
      */
-    public static operationnRandomNativeCode2<ThrowOnError extends boolean = false>(options: Options<AddReportApiV1ReportsPostData, ThrowOnError>): RequestResult<AddReportApiV1ReportsPostResponses, AddReportApiV1ReportsPostErrors, ThrowOnError> {
+    public static addReportApiV1ReportsPost<ThrowOnError extends boolean = false>(options: Options<AddReportApiV1ReportsPostData, ThrowOnError>): RequestResult<AddReportApiV1ReportsPostResponses, AddReportApiV1ReportsPostErrors, ThrowOnError> {
         return (options.client ?? client).post<AddReportApiV1ReportsPostResponses, AddReportApiV1ReportsPostErrors, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
@@ -113,7 +113,7 @@ export class ReportsService {
     /**
      * Remove Report
      */
-    public static operationnRandomNativeCode3<ThrowOnError extends boolean = false>(options: Options<RemoveReportApiV1ReportsReportIdDeleteData, ThrowOnError>): RequestResult<RemoveReportApiV1ReportsReportIdDeleteResponses, RemoveReportApiV1ReportsReportIdDeleteErrors, ThrowOnError> {
+    public static removeReportApiV1ReportsReportIdDelete<ThrowOnError extends boolean = false>(options: Options<RemoveReportApiV1ReportsReportIdDeleteData, ThrowOnError>): RequestResult<RemoveReportApiV1ReportsReportIdDeleteResponses, RemoveReportApiV1ReportsReportIdDeleteErrors, ThrowOnError> {
         return (options.client ?? client).delete<RemoveReportApiV1ReportsReportIdDeleteResponses, RemoveReportApiV1ReportsReportIdDeleteErrors, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],
@@ -125,7 +125,7 @@ export class ReportsService {
     /**
      * Get Report Id
      */
-    public static operationnRandomNativeCode4<ThrowOnError extends boolean = false>(options: Options<GetReportIdApiV1ReportsReportIdGetData, ThrowOnError>): RequestResult<GetReportIdApiV1ReportsReportIdGetResponses, GetReportIdApiV1ReportsReportIdGetErrors, ThrowOnError> {
+    public static getReportIdApiV1ReportsReportIdGet<ThrowOnError extends boolean = false>(options: Options<GetReportIdApiV1ReportsReportIdGetData, ThrowOnError>): RequestResult<GetReportIdApiV1ReportsReportIdGetResponses, GetReportIdApiV1ReportsReportIdGetErrors, ThrowOnError> {
         return (options.client ?? client).get<GetReportIdApiV1ReportsReportIdGetResponses, GetReportIdApiV1ReportsReportIdGetErrors, ThrowOnError>({
             responseType: 'json',
             security: [{ scheme: 'bearer', type: 'http' }],

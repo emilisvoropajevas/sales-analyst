@@ -1,8 +1,11 @@
-import {heyApiPlugin} from '@hey-api/vite-plugin'
+import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), heyApiPlugin()],
+  plugins: [tanstackRouter({
+    target: 'react',
+    autoCodeSplitting: true,
+  }), react() ],
 })
