@@ -16,7 +16,7 @@ client.setConfig({
   baseURL: import.meta.env.VITE_API_URL,
   throwOnError: true,
   auth: async () => {
-    return localStorage.getItem("access-token") || ""
+    return localStorage.getItem("access_token") || ""
   }
 })
 
