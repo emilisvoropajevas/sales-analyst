@@ -11,3 +11,11 @@ function Login() {
     const data = Route.useLoaderData()
     return <div>{data}</div>
 }
+
+// Full Page centered container
+// Cat Image
+// White card (shadow, rounded corners)
+    // Title
+    // Username
+    // Password
+    // Log in Button 
