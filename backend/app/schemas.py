@@ -2,7 +2,8 @@ import uuid
 from datetime import datetime
 from sqlmodel import SQLModel
 from typing import Annotated
-from pydantic import AfterValidator
+from pydantic import AfterValidator, BaseModel
+from enum import StrEnum
 
 def is_empty(value: str):
     if value is None:
@@ -17,6 +18,23 @@ def empty_name(value: str):
     if not value.strip():
         raise ValueError(f"Cannot be empty")
     return value.strip()
+
+class Status(StrEnum):
+    success = "Success"
+    failed = "Failed" 
+
+class UploadStatus(BaseModel):
+    chunk: int
+    status: Status
+    inserted_rows: int
+    reason: str | None = None
+    row_start: int
+    row_end: int
+
+class UploadStatusResponse(BaseModel):
+    total_successful: int
+    total_failed: int
+    data: list[UploadStatus]
 
 class OrdersPublic(SQLModel):
     order_id: int

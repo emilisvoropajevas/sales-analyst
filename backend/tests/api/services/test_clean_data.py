@@ -52,20 +52,20 @@ def bad_dates_csv():
 
 def test_bad_csv():
     with pytest.raises(ValueError) as e:
-        clean_and_format_csv(bad_csv())
+        next(clean_and_format_csv(bad_csv()))
     assert "Could not parse CSV file" in str(e.value)
 
 def test_empty_csv():
     with pytest.raises(ValueError) as e:
-        clean_and_format_csv(empty_csv())
+        next(clean_and_format_csv(empty_csv()))
     assert "CSV file is empty" in str(e.value)
 
 def test_missing_columns():
     with pytest.raises(ValueError) as e:
-        clean_and_format_csv(missing_columns_csv())
+        next(clean_and_format_csv(missing_columns_csv()))
     assert "Column Price missing from data"
 
 def test_bad_dates():
     with pytest.raises(ValueError) as e:
-        clean_and_format_csv(bad_dates_csv())
+        next(clean_and_format_csv(bad_dates_csv()))
     assert "Too many null dates" in str(e.value)
