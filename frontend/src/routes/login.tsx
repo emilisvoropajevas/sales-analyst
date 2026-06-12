@@ -39,43 +39,51 @@ function Login() {
     }
 // Add cat image above h2 tag later
     return (
-        <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-            
-            <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-black"> Sign in</h2>
+        <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center p-4">
+            <div className="bg-white rounded-xl shadow-xl overflow-hidden max-w-md w-full transform transition-all hover:scale-105 duration-300">
+                <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-6">
+                    <h2 className="text-white text-2xl font-bold text-center">Welcome Back</h2>
+                </div>
 
-            <div className="mt-10">
-                <form className="space-y-6">
-                    <div>
-                        <label className="block text-sm/6 font-medium text-gray-700">Username</label>
-                        <div className="mt-2">
-                            <input id="username" type="text" name="username" required autoComplete="username" className="block w-full rounded-md bg-white/5 px-3 text-base text-black" />
+                <div className="p-6">
+                    <form onSubmit={onSubmit}>
+                        <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-medium mb-2">
+                                Username
+                            </label>
+                            <input id="username" type="text" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                            placeholder="username"
+                            value={username}
+                            onChange={(e) => {setUsername(e.target.value)}}
+                            required
+                            />
                         </div>
-                    </div>
 
-                    <div className="flex items-center justify-between">
-                        <label className="block font-medium text-gray-700">Password</label>
-
-                        <div className="mt-2">
-                            <input id="password" type="text" name="password" required autoComplete="username" className="block w-full rounded-md bg-white/5 px-3 text-base text-black" />
+                        <div className="mb-6">
+                            <label className="block text-gray-700 text-sm font-medium mb-2">
+                                Password
+                            </label>
+                            <input id="password" type="text" className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                            placeholder="--------" //This needs to change to show *** on typing password with (showpassword function)
+                            value={password}
+                            onChange={(e) => {setPassword(e.target.value)}}
+                            required
+                            />
                         </div>
-                    </div>
-                    <div>
-                        <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5">Log In</button>
-                    </div>
 
-                </form>
+                        <button type="submit" className="w-full py-2 px-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:opacity-90 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                            Log in
+                        </button>
+                    </form>
+
+                </div>
 
             </div>
-        </div>
-        
 
+        </div>
     )
 }
 
-// Full Page centered container
-// Cat Image
-// White card (shadow, rounded corners)
-    // Title
-    // Username
-    // Password
-    // Log in Button 
+// Render errors correctly 
+// How does useAuth check expiry
+// 
